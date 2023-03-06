@@ -19,7 +19,7 @@ tags:
   - rules
 ---
 
-![](/assets/images/htb-writeup-delivery/delivery_logo.png)
+![](/assets/images/htb-soccer-writeup/soccer_logo.png)
 
 ## Portscan
 
