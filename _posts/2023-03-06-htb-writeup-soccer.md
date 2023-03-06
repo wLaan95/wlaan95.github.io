@@ -49,11 +49,12 @@ La página principal de la web no tiene información relevante y no hay ningún 
 
 El programa ha encontrado un directorio llamado 'tiny' que contiene una página de login.
 
-## Tiny
+## Tiny Exploitation
 
+La apliación web Tiny File Manager es opensource y el código fuente se puede encontrar en GitHub. Gracias a ellos sabemos que por defecto la aplicación viene con dos usuarios, **admin** y **user**. Usando las credenciales encontradas en el código fuente conseguimos acceder al panel del control de la aplicación.
 
-## Flag de usuario
+## User shell
 
-With the `maildeliverer / Youve_G0t_Mail!` credentials we can SSH in and get the user flag.
+Ya tenemos acceso a la aplicación de gestión de ficheros cuya versión es 2.4.3. Si buscamos exploits para TinyFileManager encontramos que esta versión es vulnerable a un 'path transversal' a través de su función de subir ficheros. Dado que tenemos la cuenta de administrador, podemos usar esta [webshell](https://pentestmonkey.net/tools/web-shells/php-reverse-shell) para subir el fichero, abrirlo y obtener una shell reversa:
 
-![](/assets/images/htb-writeup-delivery/user.png)
+![](/assets/images/htb-soccer-writeup/user-shell.png)
