@@ -12,11 +12,11 @@ categories:
   - hackthebox
   - infosec
 tags:  
-  - osticket
-  - mysql
-  - mattermost
-  - hashcat
-  - rules
+  - websocket
+  - blind sqli
+  - doas
+  - dstat
+  - path transversal
 ---
 
 ![](/assets/images/htb-soccer-writeup/soccer-logo.png)
@@ -58,3 +58,54 @@ La apliación web Tiny File Manager es opensource y el código fuente se puede e
 Ya tenemos acceso a la aplicación de gestión de ficheros cuya versión es 2.4.3. Si buscamos exploits para TinyFileManager encontramos que esta versión es vulnerable a un 'path transversal' a través de su función de subir ficheros. Dado que tenemos la cuenta de administrador, podemos usar esta [webshell](https://pentestmonkey.net/tools/web-shells/php-reverse-shell) para subir el fichero, abrirlo y obtener una shell reversa:
 
 ![](/assets/images/htb-soccer-writeup/user-shell.png)
+
+Tras usar linpeas para encontrar posibles formas de escalar privilegios, encontramos que existe un subodminio dentro de **soccer.htb** llamado **oc-player.soccer.htb**. Tras añadir este nuevo dominio a nuestro fichero /etc/hosts observamos que ahora la página web cuenta con nuevas opciones, como match, login y signup.
+
+Procedemos a crear un usuario y hacer login, y nos encontramos con esta nueva página:
+
+![](/assets/images/htb-soccer-writeup/ticket.png)
+
+Esta página comprueba un número de ticket y nos indica si es válido o no. Revisando el código fuente observamos que a través de Websockets realiza consultas a una base de datos. Siguiendo los pasos de este [artículo](https://rayhan0x01.github.io/ctf/2021/04/02/blind-sqli-over-websocket-automation.html) para realizar **Blind SQL** a WebSockets a través de nodejs, podemos obtener el nombre de la base de datos, sus tablas y la información alojada en ellas. Gracias a esto encontramos el usuario **player** con el que podemos conectar a través de SSH a la máquina.
+
+![](/assets/images/htb-soccer-writeup/db-dump.png)
+
+Navegamos al escritorio y encontramos la primera flag.
+
+## Privilege escalation
+
+Buscamos archivos que tengan permisos de SUID con el siguiente comando:
+```
+find / -perm /4000 2>/dev/null
+```
+Observamos que nos sale 'doas' y éste nos permite la ejecución de 'dstat' con permisos de root
+
+![](/assets/images/htb-soccer-writeup/doas.png)
+
+Dstat es vulnerable y nos permite la elevación de privilegios si pudiesemos ejecutarlo con permisos de root, pero nosotros tenemos que ejecutar dstat a través de doas para tener dicho privilegio.
+
+Lo primero es encontrar los directorios sobre los que trabaja dstat
+
+```
+find / -type d -name dstat 2>/dev/null
+
+/usr/share/doc/dstat
+/usr/share/dstat
+/usr/local/share/dstat
+
+```
+
+Usaremos el fichero '/usr/local/share/dstat'. 
+
+Lo segundo que hay que hacer es crear un script en la ruta anterior que se ejecutará con permisos de root, por ejemplo añadir el bit de SUID a una shell:
+
+```
+import os
+
+os.system('chmod +s /usr/bin/bash')
+```
+
+Ahora ejecutamos el script:
+
+![](/assets/images/htb-soccer-writeup/dstat-priv-esc.png)
+
+Si ahora ejecutamos una bash, la shel obtenida tendrá privilegios de root y así conseguimos la segunda flag.
