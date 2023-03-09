@@ -5,7 +5,7 @@ excerpt: "Resolución de la máquina de dificultad fácil 'Soccer' de Hack the B
 date: 2023-03-06
 classes: wide
 header:
-  teaser: /assets/images/htb-writeup-soccer/soccer_logo.png
+  teaser: /assets/images/htb-writeup-soccer/soccer-logo.png
   teaser_home_page: true
   icon: /assets/images/hackthebox.webp
 categories:
