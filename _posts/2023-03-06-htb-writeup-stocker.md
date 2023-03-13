@@ -23,7 +23,7 @@ tags:
 
 ## Portscan
 
-```nmap
+```bash
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
 Starting Nmap 7.92 ( https://nmap.org ) at 2023-03-09 19:47 CET
 Initiating SYN Stealth Scan at 19:47
@@ -49,7 +49,7 @@ Nmap done: 1 IP address (1 host up) scanned in 13.77 seconds
 
 La web no presenta información útil, y usando dirsearch no encontramos ningún path interesante. Probamos con gobuster para buscar posibles subdominios y obtenemos el siguiente resultado:
 
-```gobuster
+```bash
 ===============================================================
 Gobuster v3.1.0
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
