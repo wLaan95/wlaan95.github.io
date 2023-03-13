@@ -2,7 +2,7 @@
 layout: single
 title: Stocker - Hack The Box - WriteUp
 excerpt: "Resolución de la máquina de dificultad fácil 'Stocker' de Hack the Box"
-date: 2023-03-06
+date: 2023-03-09
 classes: wide
 header:
   teaser: /assets/images/htb-writeup-stocker/stocker-logo.png
@@ -12,14 +12,11 @@ categories:
   - hackthebox
   - infosec
 tags:  
-  - websocket
-  - blind sqli
-  - doas
-  - dstat
-  - path transversal
+  - bootstrap
+
 ---
 
-![](/assets/images/htb-soccer-writeup/stocker-logo.png)
+![](/assets/images/htb-writeup-stocker/stocker-logo.png)
 
 ## Portscan
 
@@ -46,6 +43,36 @@ Nmap done: 1 IP address (1 host up) scanned in 13.77 seconds
 ```
 
 ## Website
+
+La web no presenta información útil (más allá del nombre de un empleado que podría ser útil más adelante si necesitamos algún tipo de nombre de usuario, "Angoose Garden"), y usando dirsearch no encontramos ningún path interesante. Probamos con gobuster para buscar posibles subdominios y obtenemos el siguiente resultado:
+
+```
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:          http://stocker.htb
+[+] Method:       GET
+[+] Threads:      50
+[+] Wordlist:     /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+[+] User Agent:   gobuster/3.1.0
+[+] Timeout:      10s
+===============================================================
+2023/03/10 18:16:39 Starting gobuster in VHOST enumeration mode
+===============================================================
+Found: dev.stocker.htb (Status: 302) [Size: 28]
+                                               
+===============================================================
+2023/03/10 18:16:45 Finished
+===============================================================
+```
+Existe un subdominio llamado **dev** que contiene un panel de login. Después de varios intentos, y de búsqueda, vemos que no se puede realizar un SQLi normal. Para este caso tenemos que usar una inyección [noSQL](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection). 
+
+Capturamos la petición realizada en el login con BurpSuite, modificamos los valores de username y password, y le damos un formato JSON
+
+![](/assets/images/htb-writeup-stocker/nosqi-json.png)
+
+Con esto conseguimos acceder a la página de "stock".
 
 ## User shell
 
