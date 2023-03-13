@@ -13,7 +13,7 @@ categories:
   - infosec
 tags:  
   - suid
-  - lfi
+  - LFI
   - burpsuite
 
 ---
