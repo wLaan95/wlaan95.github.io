@@ -71,7 +71,7 @@ Dado que tenemos una vulnerabilidad de tipo LFI, podemos intentar leer ficheros 
 ![vault-view-request](/assets/images/htb-writeup-agile/vault-view-request.png)
 ![vault-view-response](/assets/images/htb-writeup-agile/vault-view-response.png)
 
-Este fichero contiene toda la funcionalidad relacionada con el uso del "vault", y podemos intentar ver si tenemos acceso a las contraseñas de otros usuarios. Usando la funcion de "/vault/row/<id>" vamos probando ids y en el número 8 encontramos la contraseña del usuario "corum" para el servidor de agile.
+Este fichero contiene toda la funcionalidad relacionada con el uso del "vault", y podemos intentar ver si tenemos acceso a las contraseñas de otros usuarios. Usando la funcion de "/vault/row/<\id>" vamos probando ids y en el número 8 encontramos la contraseña del usuario "corum" para el servidor de agile.
 
 ![corum-password](/assets/images/htb-writeup-agile/corum-password.png)
 
