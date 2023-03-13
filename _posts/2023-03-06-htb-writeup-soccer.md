@@ -47,7 +47,7 @@ La página principal de la web no tiene información relevante y no hay ningún 
 
 ![dirsearch-command](/assets/images/htb-writeup-soccer/dirsearch-command.png)
 
-El programa ha encontrado un directorio llamado 'tiny' que contiene una página de login.
+El programa ha encontrado un directorio llamado "tiny" que contiene una página de login.
 
 ## Tiny Exploitation
 
@@ -55,7 +55,7 @@ La apliación web Tiny File Manager es opensource y el código fuente se puede e
 
 ## User shell
 
-Ya tenemos acceso a la aplicación de gestión de ficheros cuya versión es 2.4.3. Si buscamos exploits para TinyFileManager encontramos que esta versión es vulnerable a un 'path transversal' a través de su función de subir ficheros. Dado que tenemos la cuenta de administrador, podemos usar esta [webshell](https://pentestmonkey.net/tools/web-shells/php-reverse-shell) para subir el fichero, abrirlo y obtener una shell reversa:
+Ya tenemos acceso a la aplicación de gestión de ficheros cuya versión es 2.4.3. Si buscamos exploits para TinyFileManager encontramos que esta versión es vulnerable a un "path transversal" a través de su función de subir ficheros. Dado que tenemos la cuenta de administrador, podemos usar esta [webshell](https://pentestmonkey.net/tools/web-shells/php-reverse-shell) para subir el fichero, abrirlo y obtener una shell reversa:
 
 ![user-shell](/assets/images/htb-writeup-soccer/user-shell.png)
 
@@ -79,7 +79,7 @@ Buscamos archivos que tengan permisos de SUID con el siguiente comando:
 find / -perm /4000 2>/dev/null
 ```
 
-Observamos que nos sale 'doas' y éste nos permite la ejecución de 'dstat' con permisos de root
+Observamos que nos sale "doas" y éste nos permite la ejecución de "dstat" con permisos de root
 
 ![doas](/assets/images/htb-writeup-soccer/doas.png)
 
@@ -96,7 +96,7 @@ find / -type d -name dstat 2>/dev/null
 
 ```
 
-Usaremos el fichero '/usr/local/share/dstat'
+Usaremos el fichero "/usr/local/share/dstat"
 
 Lo segundo que hay que hacer es crear un script en la ruta anterior que se ejecutará con permisos de root, por ejemplo añadir el bit de SUID a una shell:
 
