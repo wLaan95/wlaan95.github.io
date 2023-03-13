@@ -74,7 +74,7 @@ Existe un subdominio llamado **dev** que contiene un panel de login. Después de
 
 Capturamos la petición realizada en el login con BurpSuite, modificamos los valores de username y password, y le damos un formato JSON
 
-![nosqi-json](/assets/images/htb-writeup-stocker/nosqi-json.png)
+![nosqli-json](/assets/images/htb-writeup-stocker/nosqli-json.png)
 
 Con esto conseguimos acceder a la página de "stock".
 
@@ -108,8 +108,8 @@ Nuestro usuario tiene permisos para ejecutar "/usr/bin/node" pero solo a los sig
 
 Utilizando la web de [GTFOBins](https://gtfobins.github.io/gtfobins/node/) creamos un script en la carpeta /tmp que contenga el código a ejecutar con "node".
 
-![node-script](/assets/images/htb-writeup-stocker/node-script.js)
+![node-script](/assets/images/htb-writeup-stocker/node-script.png)
 
 Ahora ejecutamos este script con permisos de root y conseguimos elevar privilegios.
 
-![exploit-root](/assets/images/htb-writeup-stocker/exploit-root.js)
+![exploit-root](/assets/images/htb-writeup-stocker/exploit-root.png)
