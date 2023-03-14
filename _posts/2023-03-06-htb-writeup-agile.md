@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Agile - Hack The Box - WriteUp
-excerpt: "Resolución de la máquina de dificultad fácil 'Agile' de Hack the Box"
+excerpt: "Resolución de la máquina de dificultad media 'Agile' de Hack the Box"
 date: 2023-03-13
 classes: wide
 header:
